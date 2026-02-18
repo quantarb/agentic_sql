@@ -18,7 +18,7 @@ pip install opentelemetry-sdk opentelemetry-exporter-otlp-proto-http
 
 ```bash
 export OPENAI_API_KEY="YOUR_KEY"
-export RUNTIME_CONTEXT_PATH="/Users/johnnylee/PycharmProjects/agentic_sql/examples/runtime_context.sample.jsonl"
+export RUNTIME_CONTEXT_PATH="examples/runtime_context.sample.jsonl"
 ```
 
 Optional Phoenix:
@@ -32,7 +32,7 @@ export PHOENIX_COLLECTOR_ENDPOINT=http://localhost:6006/v1/traces
 ## 3. Build context index
 
 ```bash
-python /Users/johnnylee/PycharmProjects/agentic_sql/examples/build_context_index.py
+python examples/build_context_index.py
 ```
 
 This ingests context layers and embeds them into `knowledge_base.db`.
@@ -40,7 +40,7 @@ This ingests context layers and embeds them into `knowledge_base.db`.
 ## 4. Run training/eval loop (notebook)
 
 Open and run all cells in:
-- `/Users/johnnylee/PycharmProjects/agentic_sql/notebook.ipynb`
+- `notebook.ipynb`
 
 This runs generate -> score -> learn -> retry and writes run + observability data into SQLite.
 Notebook uses the canonical runtime setup helpers (`build_runtime`, `require_openai_api_key`).
@@ -48,20 +48,20 @@ Notebook uses the canonical runtime setup helpers (`build_runtime`, `require_ope
 ## 5. Run the eval harness
 
 ```bash
-python /Users/johnnylee/PycharmProjects/agentic_sql/examples/evaluate_harness.py \
+python examples/evaluate_harness.py \
   --split train \
   --n-steps 50 \
-  --output-json /Users/johnnylee/PycharmProjects/agentic_sql/eval_report.json \
-  --output-md /Users/johnnylee/PycharmProjects/agentic_sql/eval_report.md
+  --output-json eval_report.json \
+  --output-md eval_report.md
 ```
 
 This compares `baseline_no_memory` vs `candidate_default` and applies gating thresholds.
 
 ## 6. Quick verification
 
-- SQLite DB: `/Users/johnnylee/PycharmProjects/agentic_sql/knowledge_base.db`
-- Report JSON: `/Users/johnnylee/PycharmProjects/agentic_sql/eval_report.json`
-- Report Markdown: `/Users/johnnylee/PycharmProjects/agentic_sql/eval_report.md`
+- SQLite DB: `knowledge_base.db`
+- Report JSON: `eval_report.json`
+- Report Markdown: `eval_report.md`
 
 Useful SQL checks:
 
@@ -84,4 +84,4 @@ ORDER BY layer;
 - If Phoenix deps are missing, SQLite observability still works.
 - `OPENAI_API_KEY` is required by the example scripts.
 - Default embeddings are local sentence-transformers unless model config is changed.
-- Runtime initialization is standardized in `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/runtime.py`.
+- Runtime initialization is standardized in `agentic_sql.runtime`.

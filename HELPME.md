@@ -23,32 +23,32 @@ This project is a self-improving Text-to-SQL agent. It generates SQL from natura
 7. Persist everything to `knowledge_base.db`:
 - Runs, step events, memory snapshots, schema annotations, observability events.
 
-Main orchestration: `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/pipeline.py`
+Main orchestration: `agentic_sql.pipeline`
 
 ## Key Modules
 
-- Runtime setup (canonical init path): `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/runtime.py`
-- LLM orchestration: `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/llm.py`
-- Memory/indexing: `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/memory.py`
-- SQL parsing/scoring: `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/sql_utils.py`
-- SQLite persistence: `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/kb_store.py`
-- Context build/retrieval: `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/preprocess.py`
-- Observability sink (optional Phoenix): `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/observability.py`
-- Memory inspection helpers: `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/inspection.py`
-- Pipeline formatting helpers: `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/pipeline_formatting.py`
-- Pipeline memory/retrieval helpers: `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/pipeline_memory_ops.py`
+- Runtime setup (canonical init path): `agentic_sql.runtime`
+- LLM orchestration: `agentic_sql.llm`
+- Memory/indexing: `agentic_sql.memory`
+- SQL parsing/scoring: `agentic_sql.sql_utils`
+- SQLite persistence: `agentic_sql.kb_store`
+- Context build/retrieval: `agentic_sql.preprocess`
+- Observability sink (optional Phoenix): `agentic_sql.observability`
+- Memory inspection helpers: `agentic_sql.inspection`
+- Pipeline formatting helpers: `agentic_sql.pipeline_formatting`
+- Pipeline memory/retrieval helpers: `agentic_sql.pipeline_memory_ops`
 
 ## Runtime Entrypoints
 
-- Main experiment notebook: `/Users/johnnylee/PycharmProjects/agentic_sql/notebook.ipynb`
-- Context indexing: `/Users/johnnylee/PycharmProjects/agentic_sql/examples/build_context_index.py`
-- Baseline vs candidate eval: `/Users/johnnylee/PycharmProjects/agentic_sql/examples/evaluate_harness.py`
-- Runtime context sample feed: `/Users/johnnylee/PycharmProjects/agentic_sql/examples/runtime_context.sample.jsonl`
+- Main experiment notebook: `notebook.ipynb`
+- Context indexing: `examples/build_context_index.py`
+- Baseline vs candidate eval: `examples/evaluate_harness.py`
+- Runtime context sample feed: `examples/runtime_context.sample.jsonl`
 
 ## Defaults Worth Knowing
 
-- Models default to `gpt-4o-mini` and embedding defaults to local `sentence_transformers` in `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/config.py`.
-- Use `build_runtime(...)` and `require_openai_api_key(...)` from `/Users/johnnylee/PycharmProjects/agentic_sql/agentic_sql/runtime.py` for initialization.
+- Models default to `gpt-4o-mini` and embedding defaults to local `sentence_transformers` in `agentic_sql.config`.
+- Use `build_runtime(...)` and `require_openai_api_key(...)` from `agentic_sql.runtime` for initialization.
 - Memory governance is active; global promotion uses confidence/evidence thresholds.
 - Tentative lessons can expire via TTL pruning.
 - Observability is always recorded in SQLite and can be mirrored to Phoenix.
