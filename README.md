@@ -4,6 +4,33 @@ Last updated: 2026-02-18
 
 This project is a self-improving Text-to-SQL agent. It generates SQL from natural language, evaluates against gold SQL with AST-aware scoring, learns lessons, retries, and persists memory/telemetry to SQLite.
 
+## High-Level Architecture
+
+```mermaid
+flowchart TD
+    U["User Question + db_id + gold SQL"] --> O["Orchestrator (agentic_sql.pipeline)"]
+
+    O --> R["Retrieval Layer"]
+    R --> RM["Reason Memory (DB-specific)"]
+    R --> GM["Global Rules Memory"]
+    R --> CX["Offline/Runtime Context (agentic_sql.preprocess)"]
+    R --> SH["Schema Hints (SchemaMemory)"]
+
+    O --> P["Planner + SQL Generation (agentic_sql.llm)"]
+    P --> E["AST Evaluation (agentic_sql.sql_utils)"]
+
+    E -->|Pass| S["Schema Update + Memory Consolidation"]
+    E -->|Fail| C["Critic Traceback + Lesson Writer"]
+    C --> RR["Retry Generation"]
+    RR --> E
+
+    S --> K["SQLite Knowledge Base (knowledge_base.db)"]
+    C --> K
+    O --> K
+
+    O --> OBS["Observability (SQLite events + optional Phoenix)"]
+```
+
 ## End-to-End Flow
 
 1. Input: question + `db_id` + gold SQL.
