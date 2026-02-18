@@ -1,0 +1,10 @@
+.DS_Store
+.env
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Local data/artifacts
+knowledge_base.db
+eval_report.json
+eval_report.md
