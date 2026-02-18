@@ -4,6 +4,12 @@ Last updated: 2026-02-18
 
 This project is a self-improving Text-to-SQL agent. It generates SQL from natural language, evaluates against gold SQL with AST-aware scoring, learns lessons, retries, and persists memory/telemetry to SQLite.
 
+## Install
+
+```bash
+pip install -r requirements.txt
+```
+
 ## High-Level Architecture
 
 ```mermaid

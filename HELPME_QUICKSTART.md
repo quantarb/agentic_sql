@@ -5,13 +5,7 @@ Last updated: 2026-02-18
 ## 1. Install dependencies
 
 ```bash
-pip install openai datasets sqlglot faiss-cpu sentence-transformers numpy
-```
-
-Optional (Phoenix export):
-
-```bash
-pip install opentelemetry-sdk opentelemetry-exporter-otlp-proto-http
+pip install -r requirements.txt
 ```
 
 ## 2. Set env vars
