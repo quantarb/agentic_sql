@@ -12,6 +12,13 @@ from agentic_sql.observability import PhoenixObservability
 from agentic_sql.pipeline import run_dual_memory_experiment
 from agentic_sql.preprocess import OfflineContextBuilder
 from agentic_sql.runtime import AgentRuntime, build_llm, build_runtime, require_openai_api_key
+from agentic_sql.subquery_miner import (
+    IngestStats,
+    SQLCanonicalizer,
+    SQLPatternMiner,
+    SQLSubplanExtractor,
+    iter_sql_from_file,
+)
 from agentic_sql.sql_utils import ast_scores, clean_sql, extract_schema_from_gold_sql
 
 __all__ = [
@@ -36,4 +43,9 @@ __all__ = [
     "require_openai_api_key",
     "build_llm",
     "build_runtime",
+    "SQLCanonicalizer",
+    "SQLSubplanExtractor",
+    "SQLPatternMiner",
+    "IngestStats",
+    "iter_sql_from_file",
 ]

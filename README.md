@@ -77,6 +77,26 @@ Main orchestration: `agentic_sql.pipeline`
 - Context indexing: `examples/build_context_index.py`
 - Baseline vs candidate eval: `examples/evaluate_harness.py`
 - Runtime context sample feed: `examples/runtime_context.sample.jsonl`
+- SQL subplan discovery: `examples/discover_sql_subplans.py`
+
+## SQL Subplan Discovery
+
+Discover reusable SQL fragments (subplans) from a large SQL corpus:
+
+```bash
+PYTHONPATH=. python examples/discover_sql_subplans.py \
+  --input your_queries.jsonl \
+  --sql-key sql \
+  --db-path sql_pattern_mining.db \
+  --top-k 25
+```
+
+What this pipeline does:
+- Canonicalizes SQL (literal-insensitive + normalized aliases/commutative predicates).
+- Extracts reusable fragments (SELECT blocks, JOIN clauses/predicates, WHERE/HAVING filters, GROUP/ORDER keys, subqueries).
+- Builds a query-to-fragment bipartite graph in SQLite.
+- Runs graph ranking (PageRank-style propagation) + frequency/support metrics.
+- Exports graph snapshots for visualization (`json` + Graphviz `dot`).
 
 ## Defaults Worth Knowing
 
